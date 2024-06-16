@@ -1,7 +1,7 @@
 /*
-  https://editor.p5js.org/raihanfzh/sketches/Y-UQhUTyQ
   github.com/raihanfzh
   Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/Y-UQhUTyQ
 */
 
 let angle = 0; // Mendeklarasikan variabel angle dengan nilai awal 0
