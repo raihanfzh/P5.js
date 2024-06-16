@@ -1,0 +1,73 @@
+/*
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/sXODOxlrN
+
+  Link Texture :
+  https://planetpixelemporium.com/earth.html
+*/
+
+let sunTexture, earthTexture, moonTexture;
+
+function preload() {
+  // Memuat gambar tekstur untuk matahari, bumi, dan bulan
+  sunTexture = loadImage('sun.jpg');
+  earthTexture = loadImage('earth.jpg');
+  moonTexture = loadImage('moon.jpg'); 
+}
+
+function setup() {
+  // Membuat kanvas dengan ukuran 1000x720 dan mode WEBGL untuk 3D rendering
+  createCanvas(1000, 720, WEBGL);
+}
+
+function draw() {
+  // Mengatur latar belakang menjadi hitam
+  background(0);
+  
+  // Menetapkan posisi kamera
+  camera(0, -500, 700, 0, 0, 0, 0, 1, 0);
+
+  // Gambar orbit Bumi mengelilingi Matahari
+  stroke(255);  // Warna garis putih
+  noFill();  // Tidak ada isi dalam bentuk
+  beginShape();
+  // Menggambar lingkaran untuk orbit bumi
+  for (let angle = 0; angle < TWO_PI; angle += 0.01) {
+    let x = 400 * cos(angle);
+    let z = 400 * sin(angle);
+    vertex(x, 0, z);
+  }
+  endShape(CLOSE);
+
+  // Matahari
+  push();
+  rotateY(-millis() * 0.001 * radians(10));  // Rotasi matahari
+  texture(sunTexture);  // Menetapkan tekstur matahari
+  noStroke();  // Tidak ada garis pada bola
+  sphere(150);  // Ukuran matahari
+  pop();
+
+  // Cahaya dari Matahari
+  pointLight(255, 255, 255, 0, 0, 0);  // Cahaya yang berasal dari matahari
+
+  // Bumi
+  push();
+  rotateY(millis() * 0.001 * radians(30));  // Revolusi bumi mengelilingi matahari
+  translate(400, 0);  // Jarak bumi dari matahari
+  texture(earthTexture);  // Menetapkan tekstur bumi
+  noStroke();  // Tidak ada garis pada bola
+  sphere(50);  // Ukuran bumi
+
+  // Bulan
+  push();
+  rotateY(millis() * 0.001 * radians(90));  // Revolusi bulan mengelilingi bumi
+  translate(100, 0);  // Jarak bulan dari bumi
+  rotateY(millis() * 0.001 * radians(90));  // Rotasi bulan pada porosnya
+  texture(moonTexture);  // Menetapkan tekstur bulan
+  noStroke();  // Tidak ada garis pada bola
+  sphere(15);  // Ukuran bulan
+  pop();
+
+  pop();
+}
