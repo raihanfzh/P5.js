@@ -1,0 +1,64 @@
+/*
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/36rfWMyCE
+*/
+
+function pohonFraktal(x, y, panjang) {
+  
+  // Menghitung ketebalan garis berdasarkan panjang cabang
+  let tebal = map(panjang, 0, 150, 1, 25);
+  strokeWeight(tebal); // Mengatur ketebalan garis
+
+  // Mengatur warna berdasarkan panjang cabang
+  if (panjang >= 10) {
+    stroke("brown"); // Warna batang
+  } else if (panjang >= 2) {
+    stroke("green"); // Warna daun
+  } else {
+    strokeWeight(0.5); // Mengatur ketebalan untuk bunga
+    stroke("pink"); // Warna bunga
+  }
+
+  // Menggerakkan titik awal menggambar ke posisi (x, y)
+  translate(x, y);
+  line(0, 0, 0, -panjang); // Menggambar garis vertikal sebagai cabang
+  translate(0, -panjang); // Menggerakkan titik awal ke ujung cabang yang baru digambar
+
+  // Memeriksa apakah panjang cabang masih cukup untuk membuat cabang baru
+  if (panjang >= 2) {
+    
+    // Membuat cabang ke kanan atas
+    push(); // Menyimpan status transformasi dan gaya saat ini
+    rotate(radians(20)); // Memutar sumbu koordinat sebesar 20 derajat searah jarum jam
+    pohonFraktal(0, 0, panjang * 0.6); // Membuat cabang baru dengan panjang 60% dari panjang cabang saat ini
+    pop(); // Mengembalikan status transformasi dan gaya ke kondisi sebelumnya
+
+    // Membuat cabang ke kiri atas
+    push(); 
+    rotate(radians(-20)); // Memutar sumbu koordinat sebesar 20 derajat berlawanan arah jarum jam
+    pohonFraktal(0, 0, panjang * 0.6);
+    pop();
+    
+    // Membuat cabang ke kanan atas dengan sudut yang lebih besar
+    push();
+    rotate(radians(45)); // Memutar sumbu koordinat sebesar 45 derajat searah jarum jam
+    pohonFraktal(0, 0, panjang * 0.5); // Membuat cabang baru dengan panjang 50% dari panjang cabang saat ini
+    pop();
+    
+    // Membuat cabang ke kiri atas dengan sudut yang lebih besar
+    push();
+    rotate(radians(-45)); // Memutar sumbu koordinat sebesar 45 derajat berlawanan arah jarum jam
+    pohonFraktal(0, 0, panjang * 0.5);
+    pop();
+  }
+}
+
+function setup() {
+  createCanvas(500, 500); // Membuat kanvas berukuran 500x500 piksel
+}
+
+function draw() {
+  background(255); // Mengatur ulang warna latar belakang kanvas menjadi putih setiap frame
+  pohonFraktal(width / 2, height, 150); // Memanggil fungsi pohonFraktal untuk menggambar pohon di tengah bawah kanvas
+}
