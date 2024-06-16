@@ -47,5 +47,3 @@ function draw() {
     ellipse(l.x, l.y, l.diameterDasar, l.diameterDasar); // Menggambar lingkaran dengan koordinat dan diameter yang ditentukan
   }
 }
-
-//https://editor.p5js.org/raihanfzh/sketches/_WdxwZgso
