@@ -1,0 +1,46 @@
+/*
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/AljK7rG9S
+*/
+
+let banyakKubus = 1100; // Mendeklarasikan jumlah kubus yang akan dibuat
+let kotak = []; // Mendeklarasikan array kosong untuk menyimpan objek kubus
+
+function setup() {
+  createCanvas(600, 600, WEBGL); // Membuat kanvas berukuran 600x600 piksel dengan mode WEBGL untuk grafik 3D
+  for (let i = 0; i < banyakKubus; i++) {
+    // Membuat objek kubus dengan properti acak dan menambahkannya ke dalam array kotak
+    let kubus = {
+      x: random(-200, 200), // Koordinat x acak dalam rentang -200 hingga 200
+      y: random(-200, 200), // Koordinat y acak dalam rentang -200 hingga 200
+      z: random(-225, 225), // Koordinat z acak dalam rentang -225 hingga 225
+      size: random(25, 25), // Ukuran kubus tetap 25 (tidak acak)
+      color: color(random(255), random(255), random(255)) // Warna acak
+    };
+    kotak.push(kubus); // Menambahkan objek kubus ke dalam array kotak
+  }
+}
+
+function draw() {
+  background(255);
+  for (let kubus of kotak) {
+    // Menggambar setiap kubus dalam array kotak
+    push(); // Menyimpan status transformasi dan gaya saat ini
+    translate(kubus.x, kubus.y, kubus.z); // Menggeser posisi kubus ke koordinat yang ditentukan
+    fill(kubus.color); // Mengatur warna pengisian berdasarkan properti warna objek kubus
+    box(kubus.size); // Menggambar kubus dengan ukuran yang ditentukan
+    pop(); // Mengembalikan status transformasi dan gaya ke kondisi sebelumnya
+  }
+}
+
+function mousePressed() {
+  
+  // Mengubah posisi dan warna semua kubus saat mouse diklik
+  for (let kubus of kotak) {
+    kubus.x = random(-200, 200); // Mengubah koordinat x ke nilai acak baru dalam rentang -200 hingga 200
+    kubus.y = random(-200, 200); // Mengubah koordinat y ke nilai acak baru dalam rentang -200 hingga 200
+    kubus.z = random(-225, 225); // Mengubah koordinat z ke nilai acak baru dalam rentang -225 hingga 225
+    kubus.color = color(random(255), random(255), random(255)); // Mengubah warna ke nilai acak baru
+  }
+}
