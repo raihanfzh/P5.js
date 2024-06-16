@@ -37,7 +37,7 @@ function draw() {
   drawLineGraph();
   drawPoints();
   drawLabels();
-}
+} 
 
 // Fungsi untuk menggambar grafik batang
 function drawBarGraph() {
