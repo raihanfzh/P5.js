@@ -1,0 +1,109 @@
+/*
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/GsAtdkYyu
+*/
+
+let data = [];
+let suhu = [];
+
+function preload() {
+  
+  // Memuat data dari file teks
+  data = loadStrings("data-praktikum.txt");
+}
+
+function setup() {
+  
+  // Membuat kanvas
+  createCanvas(1200, 600);
+  background(255);
+  
+  // Memisahkan data dari string menjadi array dan mengkonversinya menjadi angka
+  data = split(data[0], ",");
+  for (let i in data) {
+    suhu[i] = parseFloat(data[i]);
+  }
+}
+
+function draw() {
+  // Mengatur latar belakang dan skala koordinat
+  background(255);
+  translate(0, height);
+  scale(1, -1);
+
+  // Memanggil fungsi untuk menggambar elemen-elemen grafik
+  drawBarGraph();
+  drawLineGraph();
+  drawPoints();
+  drawLabels();
+}
+
+// Fungsi untuk menggambar grafik batang
+function drawBarGraph() {
+  for (let i = 0; i < suhu.length; i++) {
+    stroke(255); // Warna garis batang
+    strokeWeight(2);
+    
+    // Menghitung warna batang berdasarkan nilai suhu
+    let r = map(suhu[i], 25, 40, 80, 255); 
+    let g = map(suhu[i], 25, 40, 80, 255); 
+    let b = 0; 
+    
+    fill(r, g, b); // Mengisi warna batang
+    
+    // Menggambar batang
+    rect(i * width / suhu.length, 0, width / suhu.length, map(suhu[i], 25, 40, 0, height));
+  }
+}
+
+// Fungsi untuk menggambar garis yang menghubungkan setiap titik suhu
+function drawLineGraph() {
+  stroke(0);
+  strokeWeight(2);
+  for (let i = 0; i < suhu.length - 1; i++) {
+
+    line(
+      i * width / suhu.length + 0.5 * (width / suhu.length), // x1
+      map(suhu[i], 25, 40, 0, height), // y1
+      (i + 1) * width / suhu.length + 0.5 * (width / suhu.length), // x2
+      map(suhu[i + 1], 25, 40, 0, height) // y2
+    );
+
+  }
+}
+
+// Fungsi untuk menggambar titik pada setiap posisi suhu
+function drawPoints() {
+  stroke(0);
+  strokeWeight(8);
+  for (let i = 0; i < suhu.length; i++) {
+    point(i * width / suhu.length + 0.5 * (width / suhu.length), map(suhu[i], 25, 40, 0, height));
+  }
+}
+
+// Fungsi untuk menggambar label kotak putih di atas setiap titik dengan nilai suhu di dalamnya
+function drawLabels() {
+  
+  textSize(15);
+  for (let i = 0; i < suhu.length; i++) {
+    push(); // Menyimpan status transformasi dan gaya saat ini
+    
+    // Mentranslasi dan membalik skala untuk menggambar teks agar berada di atas titik
+    translate(i * width / suhu.length + 0.5 * (width / suhu.length), map(suhu[i], 25, 40, 0, height));
+    scale(1, -1);
+    
+    // Mengatur teks di tengah dan menggambar latar belakang putih untuk label
+    textAlign(CENTER, CENTER);
+    rectMode(CENTER);
+    fill(255);
+    strokeWeight(1);
+    rect(0, -20, 50, 20); // Latar belakang putih untuk label
+    
+    // Menggambar teks suhu di dalam label
+    fill(0);
+    text(nf(suhu[i], 0, 2), 0, -20); // Teks suhu
+    
+    pop(); // Mengembalikan status transformasi dan gaya sebelumnya
+  }
+}
