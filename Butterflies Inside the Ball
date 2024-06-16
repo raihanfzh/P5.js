@@ -1,0 +1,54 @@
+/*
+  https://editor.p5js.org/raihanfzh/sketches/Y-UQhUTyQ
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+*/
+
+let angle = 0; // Mendeklarasikan variabel angle dengan nilai awal 0
+
+function setup() {
+  createCanvas(1000, 800, WEBGL); // Membuat kanvas berukuran 1000x800 piksel dengan mode WEBGL untuk grafik 3D
+}
+
+function draw() {
+  background(220); // Mengatur warna latar belakang kanvas menjadi abu-abu dengan nilai RGB 220
+
+  // Menggambar bola besar yang berputar
+  push(); // Menyimpan status transformasi dan gaya saat ini
+  fill('SKYBLUE'); // Mengatur warna pengisian objek menjadi biru langit
+  strokeWeight(10); // Mengatur ketebalan garis menjadi 10 piksel
+  stroke('YELLOW'); // Mengatur warna garis menjadi kuning
+  rotateX(angle * 0.5); // Memutar objek pada sumbu X sebesar setengah dari nilai angle
+  sphere(800); // Menggambar bola dengan diameter 800 piksel
+  pop(); // Mengembalikan status transformasi dan gaya ke kondisi sebelumnya
+
+  // Menggambar objek lainnya yang beranimasi
+  push(); // Menyimpan status transformasi dan gaya saat ini
+  translate(-200, -200); // Menggeser posisi objek sebesar -200 piksel pada sumbu X dan Y
+  stroke('DARKGREEN'); // Mengatur warna garis menjadi hijau tua
+  strokeWeight(4); // Mengatur ketebalan garis menjadi 4 piksel
+
+  translate(200, 200); // Menggeser posisi objek kembali sebesar 200 piksel pada sumbu X dan Y
+  rotateX(-sin(angle)); // Memutar objek pada sumbu X berdasarkan nilai sinus dari angle (untuk animasi)
+  fill('#FF9800'); // Mengatur warna pengisian objek menjadi oranye
+  ellipse(0, -30, 10, 80); // Menggambar elips dengan lebar 10 dan tinggi 80 pada posisi (0, -30)
+  fill('LIGHTGREEN'); // Mengatur warna pengisian objek menjadi hijau muda
+  ellipse(-60, -50, 100, 70); // Menggambar elips dengan lebar 100 dan tinggi 70 pada posisi (-60, -50)
+
+  stroke('DARKBLUE'); // Mengatur warna garis menjadi biru tua
+  fill('SKYBLUE'); // Mengatur warna pengisian objek menjadi biru langit
+  ellipse(-40, 8, 60, 40); // Menggambar elips dengan lebar 60 dan tinggi 40 pada posisi (-40, 8)
+
+  rotateY(-sin(angle)); // Memutar objek pada sumbu Y berdasarkan nilai sinus dari angle (untuk animasi)
+  stroke('DARKGREEN'); // Mengatur warna garis menjadi hijau tua
+  fill('LIGHTGREEN'); // Mengatur warna pengisian objek menjadi hijau muda
+  ellipse(60, -50, 100, 80); // Menggambar elips dengan lebar 100 dan tinggi 80 pada posisi (60, -50)
+
+  stroke('DARKBLUE'); // Mengatur warna garis menjadi biru tua
+  fill('SKYBLUE'); // Mengatur warna pengisian objek menjadi biru langit
+  ellipse(40, 10, 60, 40); // Menggambar elips dengan lebar 60 dan tinggi 40 pada posisi (40, 10)
+
+  angle += 0.03; // Menambah nilai angle sebesar 0.03 untuk animasi
+  pop(); // Mengembalikan status transformasi dan gaya ke kondisi sebelumnya
+}
+
