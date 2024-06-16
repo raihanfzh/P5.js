@@ -1,0 +1,51 @@
+/*
+  github.com/raihanfzh
+  Raihan Hafizh Nugraha
+  https://editor.p5js.org/raihanfzh/sketches/_WdxwZgso
+*/
+
+let lingkaran = []; // Mendeklarasikan array kosong untuk menyimpan objek lingkaran
+let timer = 0; // Mendeklarasikan variabel timer dengan nilai awal 0
+let interval = 25; // Mendeklarasikan variabel interval dengan nilai 25 milidetik
+
+function setup() {
+  createCanvas(1000, 800);
+  background(255); // Mengatur warna latar belakang kanvas menjadi putih (RGB 255)
+}
+
+function draw() {
+  background(255); // Mengatur ulang warna latar belakang kanvas menjadi putih setiap frame
+
+  // Menghitung jarak antara posisi mouse dengan pusat kanvas
+  let jarak = dist(mouseX, mouseY, width / 2, height / 2); 
+  
+  // Menghitung faktor skala berdasarkan jarak dari pusat
+  let faktorSkala = map(jarak, 0, max(width, height) / 2, 5, 0.5); 
+  
+  // Membatasi nilai faktor skala antara 1 dan 5
+  faktorSkala = constrain(faktorSkala, 1, 5); 
+
+  // Mengecek apakah interval waktu sudah terpenuhi untuk membuat lingkaran baru
+  if (millis() - timer > interval) {
+    
+    // Membuat objek lingkaran baru dengan properti acak
+    let lingkaranBaru = {
+      x: random(width), // Koordinat x acak dalam lebar kanvas
+      y: random(height), // Koordinat y acak dalam tinggi kanvas
+      diameterDasar: random(10, 50) * faktorSkala, // Diameter acak dengan faktor skala
+      warna: [random(255), random(255), random(255), 150] // Warna acak dengan transparansi 150
+    };
+    lingkaran.push(lingkaranBaru); // Menambahkan lingkaran baru ke dalam array lingkaran
+    timer = millis(); // Memperbarui timer dengan waktu saat ini
+  }
+
+  // Menggambar semua lingkaran yang ada dalam array
+  for (let i = 0; i < lingkaran.length; i++) {
+    let l = lingkaran[i]; // Mengambil objek lingkaran pada indeks ke-i
+    fill(l.warna); // Mengatur warna pengisian berdasarkan properti warna objek
+    noStroke(); // Menghilangkan garis tepi pada lingkaran
+    ellipse(l.x, l.y, l.diameterDasar, l.diameterDasar); // Menggambar lingkaran dengan koordinat dan diameter yang ditentukan
+  }
+}
+
+//https://editor.p5js.org/raihanfzh/sketches/_WdxwZgso
